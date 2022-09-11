@@ -9,10 +9,10 @@ public class DashboardPage {
     private ElementsCollection cards = $$x("//li[@class='list__item']");
     private final String balanceStart = "баланс: ";
     private final String balanceFinish = " р.";
-    private ElementsCollection heading = $$x("//button[@data-test-id='action-deposit']");
+    private ElementsCollection button = $$x("//button[@data-test-id='action-deposit']");
 
     public TransferMoneyPage transferMoneyCard(int id) {
-        heading.get(id).click();
+        button.get(id).click();
         return new TransferMoneyPage();
     }
 
