@@ -11,7 +11,7 @@ public class DashboardPage {
     private final String balanceFinish = " р.";
     private ElementsCollection button = $$x("//button[@data-test-id='action-deposit']");
 
-    public TransferMoneyPage transferMoneyCard(int id) {
+    public TransferMoneyPage chooseCard(int id) {
         button.get(id).click();
         return new TransferMoneyPage();
     }

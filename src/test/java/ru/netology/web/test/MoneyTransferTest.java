@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import ru.netology.web.data.DataHelper;
 import ru.netology.web.page.DashboardPage;
 import ru.netology.web.page.LoginPage;
+import ru.netology.web.page.TransferMoneyPage;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -27,7 +28,7 @@ class MoneyTransferTest {
         var dashboard = new DashboardPage();
         int balanceFirstCard = dashboard.getCardBalance("0");
         int balanceSecondCard = dashboard.getCardBalance("1");
-        dashboard.transferMoneyCard(1).transferMoney(DataHelper.getFirstCardNumber(), amount);
+        dashboard.chooseCard(1).transferMoney(DataHelper.getFirstCardNumber(), amount);
         int newBalanceFirstCard = dashboard.getCardBalance("0");
         int newBalanceSecondCard = dashboard.getCardBalance("1");
         Assertions.assertTrue(newBalanceFirstCard > 0 && newBalanceSecondCard > 0);
@@ -41,7 +42,7 @@ class MoneyTransferTest {
         var dashboard = new DashboardPage();
         int balanceFirstCard = dashboard.getCardBalance("0");
         int balanceSecondCard = dashboard.getCardBalance("1");
-        dashboard.transferMoneyCard(0).transferMoney(DataHelper.getSecondCardNumber(), amount);
+        dashboard.chooseCard(0).transferMoney(DataHelper.getSecondCardNumber(), amount);
         int newBalanceFirstCard = dashboard.getCardBalance("0");
         int newBalanceSecondCard = dashboard.getCardBalance("1");
         Assertions.assertTrue(newBalanceFirstCard > 0 && newBalanceSecondCard > 0);
@@ -56,8 +57,9 @@ class MoneyTransferTest {
         int balanceFirstCard = dashboard.getCardBalance("0");
         int balanceSecondCard = dashboard.getCardBalance("1");
         int amount = (dashboard.getCardBalance("1") + 5000);
-        dashboard.transferMoneyCard(1).transferMoney(DataHelper.getFirstCardNumber(), amount);
-        dashboard.transferMoneyCard(1).errorInsufficientFunds(DataHelper.getFirstCardNumber());
+        TransferMoneyPage transferMoneyPage = dashboard.chooseCard(1);
+        transferMoneyPage.transferMoney(DataHelper.getFirstCardNumber(), amount);
+        transferMoneyPage.errorInsufficientFunds(DataHelper.getFirstCardNumber());
         int newBalanceFirstCard = dashboard.getCardBalance("0");
         int newBalanceSecondCard = dashboard.getCardBalance("1");
         Assertions.assertTrue(newBalanceFirstCard > 0 && newBalanceSecondCard > 0);
@@ -71,7 +73,7 @@ class MoneyTransferTest {
         var dashboard = new DashboardPage();
         int balanceFirstCard = dashboard.getCardBalance("0");
         int balanceSecondCard = dashboard.getCardBalance("1");
-        dashboard.transferMoneyCard(1).transferMoney(DataHelper.getFirstCardNumber(), amount);
+        dashboard.chooseCard(1).transferMoney(DataHelper.getFirstCardNumber(), amount);
         int newBalanceFirstCard = dashboard.getCardBalance("0");
         int newBalanceSecondCard = dashboard.getCardBalance("1");
         Assertions.assertTrue(newBalanceFirstCard > 0 && newBalanceSecondCard > 0);
@@ -85,8 +87,9 @@ class MoneyTransferTest {
         var dashboard = new DashboardPage();
         int balanceFirstCard = dashboard.getCardBalance("0");
         int balanceSecondCard = dashboard.getCardBalance("1");
-        dashboard.transferMoneyCard(0).transferMoney(DataHelper.getSecondCardNumber(), amount);
-        dashboard.transferMoneyCard(0).errorNegativeAmount();
+        TransferMoneyPage transferMoneyPage = dashboard.chooseCard(0);
+        transferMoneyPage.transferMoney(DataHelper.getSecondCardNumber(), amount);
+        transferMoneyPage.errorNegativeAmount();
         int newBalanceFirstCard = dashboard.getCardBalance("0");
         int newBalanceSecondCard = dashboard.getCardBalance("1");
         Assertions.assertTrue(newBalanceFirstCard > 0 && newBalanceSecondCard > 0);
