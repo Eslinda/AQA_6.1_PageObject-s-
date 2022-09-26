@@ -54,17 +54,9 @@ class MoneyTransferTest {
     @Test
     void shouldErrorInsufficientFunds() {
         var dashboard = new DashboardPage();
-        int balanceFirstCard = dashboard.getCardBalance("0");
-        int balanceSecondCard = dashboard.getCardBalance("1");
         int amount = (dashboard.getCardBalance("1") + 5000);
         TransferMoneyPage transferMoneyPage = dashboard.chooseCard(1);
-        transferMoneyPage.transferMoney(DataHelper.getFirstCardNumber(), amount);
-        transferMoneyPage.errorInsufficientFunds(DataHelper.getFirstCardNumber());
-        int newBalanceFirstCard = dashboard.getCardBalance("0");
-        int newBalanceSecondCard = dashboard.getCardBalance("1");
-        Assertions.assertTrue(newBalanceFirstCard > 0 && newBalanceSecondCard > 0);
-        Assertions.assertEquals(newBalanceFirstCard, balanceFirstCard);
-        Assertions.assertEquals(newBalanceSecondCard, balanceSecondCard);
+        transferMoneyPage.errorInsufficientFunds(DataHelper.getFirstCardNumber(), amount);
     }
 
     @Test
@@ -85,16 +77,8 @@ class MoneyTransferTest {
     void shouldErrorNullAmount() {
         int amount = 0;
         var dashboard = new DashboardPage();
-        int balanceFirstCard = dashboard.getCardBalance("0");
-        int balanceSecondCard = dashboard.getCardBalance("1");
         TransferMoneyPage transferMoneyPage = dashboard.chooseCard(0);
-        transferMoneyPage.transferMoney(DataHelper.getSecondCardNumber(), amount);
-        transferMoneyPage.errorNegativeAmount();
-        int newBalanceFirstCard = dashboard.getCardBalance("0");
-        int newBalanceSecondCard = dashboard.getCardBalance("1");
-        Assertions.assertTrue(newBalanceFirstCard > 0 && newBalanceSecondCard > 0);
-        Assertions.assertEquals(newBalanceFirstCard, balanceFirstCard);
-        Assertions.assertEquals(newBalanceSecondCard, balanceSecondCard);
+        transferMoneyPage.errorNegativeAmount(DataHelper.getFirstCardNumber(), amount);
     }
 
 }

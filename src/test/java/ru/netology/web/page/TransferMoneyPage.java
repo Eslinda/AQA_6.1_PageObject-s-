@@ -22,13 +22,19 @@ public class TransferMoneyPage {
         return new DashboardPage();
     }
 
-    public void errorInsufficientFunds(DataHelper.TransferMoneyCard transferCard) {
+    public void errorInsufficientFunds(DataHelper.TransferMoneyCard transferCard, int amount) {
+        amountTransfer.setValue(String.valueOf(amount));
+        cardNumber.setValue(transferCard.getCardNumber());
+        buttonTransfer.click();
         error.shouldHave(Condition.exactText("На карте " + transferCard.getCardNumber() + " недостаточно средств"))
                 .shouldBe(Condition.visible);
 
     }
 
-    public void errorNegativeAmount() {
+    public void errorNegativeAmount(DataHelper.TransferMoneyCard transferCard, int amount) {
+        amountTransfer.setValue(String.valueOf(amount));
+        cardNumber.setValue(transferCard.getCardNumber());
+        buttonTransfer.click();
         error.shouldHave(Condition.exactText("Сумма перевода должна быть больше 0"))
                 .shouldBe(Condition.visible);
 
